@@ -27,7 +27,7 @@ public class UserController {
 
     @GetMapping(path = {"/{id}"})
     public User findOne(@PathVariable("id") int id){
-	return new User(1, "Zied", "Krichen", "H11");
+	return new User(1, "Zied", "Krichen", "H12");
     }
 
     @PutMapping
