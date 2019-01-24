@@ -5,7 +5,7 @@
 
 	<groupId>com.zkrichen</groupId>
 	<artifactId>user-portal</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<packaging>war</packaging>
 
 	<name>user-portal</name>
@@ -22,21 +22,18 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<docker.image.prefix>zkrichen</docker.image.prefix>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.6</version>
 		</dependency>
 
 		<dependency>
@@ -52,8 +49,34 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			
+		 <plugin>
+      	<groupId>com.spotify</groupId>
+      	<artifactId>docker-maven-plugin</artifactId>
+		<version>1.2.0</version>
+      <configuration>
+        <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+        <dockerDirectory>src/main/docker</dockerDirectory>
+        <dockerHost>http://10.20.115.78:2375</dockerHost>
+<!--         <entryPoint>["java", "-jar", "/${project.build.finalName}.war"]</entryPoint> -->
+        <!-- copy the service's jar file from target into the root directory of the image -->
+        <forceTags>true</forceTags>
+        <imageTags>
+         <imageTag>${project.version}</imageTag>
+         <imageTag>latest</imageTag>
+        </imageTags> 
+        <serverId>docker-hub</serverId>
+        <registryUrl>https://hub.docker.com/</registryUrl>
+        <resources>
+           <resource>
+             <targetPath>/</targetPath>
+             <directory>${project.build.directory}</directory>
+             <include>${project.build.finalName}.war</include>
+           </resource>
+        </resources>
+      </configuration>
+    </plugin>	
 		</plugins>
+		
 	</build>
 
 

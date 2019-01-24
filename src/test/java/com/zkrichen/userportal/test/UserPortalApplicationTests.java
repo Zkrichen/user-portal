@@ -1,4 +1,4 @@
-package com.devglan.userportal;
+package com.zkrichen.userportal.test;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +11,8 @@ public class UserPortalApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		int x= 1;
+		assert(x==1);
 	}
 
 }
