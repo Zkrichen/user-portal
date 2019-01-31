@@ -56,7 +56,7 @@
       <configuration>
         <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
         <dockerDirectory>src/main/docker</dockerDirectory>
-        <dockerHost>http://10.20.115.78:2375</dockerHost>
+<!--         <dockerHost>http://10.20.115.78:2375</dockerHost> -->
 <!--         <entryPoint>["java", "-jar", "/${project.build.finalName}.war"]</entryPoint> -->
         <!-- copy the service's jar file from target into the root directory of the image -->
         <forceTags>true</forceTags>
